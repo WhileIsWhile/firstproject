@@ -4,20 +4,21 @@
     <thead>
     <tr>
         <th scope="col">ID</th>
-        <th scope="col">Title</th>
-        <th scope="col">Content</th>
+        <th scope="col">TITLE</th>
+        <th scope="col">CONTENT</th>
     </tr>
     </thead>
     <tbody>
         {{#article}}
-        <tr>
-            <th>{{id}}</th>
-            <td>{{title}}</td>
-            <td>{{content}}</td>
-        </tr>
+            <tr>
+                <th>{{id}}</th>
+                <td>{{title}}</td>
+                <td>{{content}}</td>
+            </tr>
         {{/article}}
     </tbody>
 </table>
-<a href="/articles">GO to Article List</a>
-
+<!--모델 범위 밖에 서 모델안에 id 값 불러올려면!! article.id 이렇게 하면됨! ㅇ..-->
+<a href="/articles/{{article.id}}/update" class="btn btn-primary">Update</a>
+<a href="/articles" class="btn btn-primary">Go to articleList</a>
 {{>layouts/footer}}
