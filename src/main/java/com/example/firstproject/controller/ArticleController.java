@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j //로깅을 위한 골뱅이(어노테이션)
@@ -72,9 +73,18 @@ public class ArticleController {
 
         // 1. id로 데이터를 가져옴!
         //id 데이터를 찾아서 없다면 null 을 반환해라! 라는 뜻 으로 .orElse(null) 이걸 씀
-        Article articleEntity= articleRepository.findById(id).orElse(null);
+
+        //아니면 articleRepository.findById(id); 반환 값이 Optional 이기 때문에 거기에서 .get();
+        //메서드를 들고와서 모델에 담으면됨!!
+
+        /*Article article= articleRepository.findById(id).orElse(null);*/ //이렇게 써도 되지만 ??
+
+        Optional<Article> article = articleRepository.findById(id);
+
         // 2. 가져온 데이터를 모델에 등록!
-        model.addAttribute("article", articleEntity);
+
+        model.addAttribute("article", article.get());
+
         // 3. 보여줄 페이지를 설정!
         return "articles/show";
     }
@@ -97,4 +107,19 @@ public class ArticleController {
         // 3. 뷰페이지 를 설정!
         return "articles/index";//articles 안에 index.mustache
     }
+
+    @GetMapping("/articles/{id}/update")
+    public String update(@PathVariable long id , Model model){
+        //수정할 데이터 가져오기!!
+       Optional<Article> article = articleRepository.findById(id);
+        
+       //모델에 데이터 등록하기
+       model.addAttribute("article",article.get());
+
+
+        //뷰페이지 설정
+        return "articles/update";
+    }
+
+
 }

@@ -9,18 +9,17 @@
     </tr>
     </thead>
     <tbody>
-    <!--해당변수가 데이터의 묶음일 경우에는 List니까 반복이됨 id/title/content 출력을!!-->
     {{#articleList}}
         <tr>
             <th>{{id}}</th>
-            <td><a href="/articles/{{id}}">{{title}}</a> </td>
+            <td><a href="/articles/{{id}}">{{title}}</a></td>
             <td>{{content}}</td>
         </tr>
     {{/articleList}}
     </tbody>
 </table>
 
-<a href="/articles/new">New Article</a>
+<a href="/articles/new" class="btn btn-primary">New Article</a>
 
 
 {{>layouts/footer}}
