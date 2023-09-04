@@ -110,7 +110,7 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}/edit")
-    public String eidit(@PathVariable long id , Model model){
+    public String eidit(@PathVariable Long id , Model model){
         //수정할 데이터 가져오기!!
        Optional<Article> article = articleRepository.findById(id);
         
@@ -149,7 +149,7 @@ public class ArticleController {
     }
 
     @GetMapping("articles/{id}/delete")
-    public String delete(@PathVariable long id , RedirectAttributes rttr){
+    public String delete(@PathVariable Long id , RedirectAttributes rttr){
 
         log.info("삭제요청이 들어왔습니다.");
 
