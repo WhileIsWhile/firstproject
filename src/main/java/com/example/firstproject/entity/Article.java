@@ -1,9 +1,6 @@
 package com.example.firstproject.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,9 @@ public class Article {
 
     @Id//대표값을 지정! 하는 어노테이션 주민등록번호같은것,
     // 제목도 같고 내용도 같을수 있지만 다른 애를 확인할수있게!!하는 것!
-    @GeneratedValue // 1. 2.3. 자동 생성 어노테이션 대표값들 이 자동으로 생성 하게해줌!!
+    // 1. 2.3. 자동 생성 어노테이션 대표값들 이 자동으로 생성 하게해줌!! 였지만
+    // strategy = GenerationType.IDENTITY 이렇게 함으로써 db가 알아서 번호 되도록 한것
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String title;
