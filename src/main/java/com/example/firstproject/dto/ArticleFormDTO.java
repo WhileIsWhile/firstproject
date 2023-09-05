@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
-public class ArticleForm {
+public class ArticleFormDTO {
     private Long id;    //id 필드 추가
     private String title;
     private String content;
@@ -18,7 +18,7 @@ public class ArticleForm {
 
     // AllArgsConstructor 써준 이유!!! - 리팩터링 이라고 함!(가독성이 좋아짐!)
 
-   /* public ArticleForm(String title, String content) {
+   /* public ArticleFormDTO(String title, String content) {
         this.title = title;
         this.content = content;
     }
@@ -26,7 +26,7 @@ public class ArticleForm {
     //잘 받았는지 확인하기위해서!!
     @Override
     public String toString() {
-        return "ArticleForm{" +
+        return "ArticleFormDTO{" +
                 "title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 '}';
