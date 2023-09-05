@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity // DB 가 해당객체를 인식 가능!
+@Entity // DB 가 해당객체를 인식 가능!(해당 클래스로 테이블을 만듬)
 @AllArgsConstructor     //모든 생성자를 만들어줌
 @NoArgsConstructor  //디폴트 생성자를 추가해주는 어노테이션
 @ToString
@@ -23,6 +23,15 @@ public class Article {
     private String title;
     @Column
     private String content;
+
+    public void patch(Article article) {
+        if(article.title != null){
+            this.title = article.title;
+        }
+        if(article.content != null){
+            this.content = article.content;
+        }
+    }
 
 
 

@@ -1,7 +1,7 @@
 package com.example.firstproject.controller;
 
 
-import com.example.firstproject.dto.ArticleForm;
+import com.example.firstproject.dto.ArticleFormDTO;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -32,20 +32,20 @@ public class ArticleController {
     }
     //2번째로 한것
     @PostMapping("articles/create")
-    //던져진 form 객체는 dto 객체에 담겨 지더라....ArticleForm articleForm
-    public String createArticle(ArticleForm articleForm){
-       /* System.out.println(articleForm.toString());
+    //던져진 form 객체는 dto 객체에 담겨 지더라....ArticleFormDTO articleFormDTO
+    public String createArticle(ArticleFormDTO articleFormDTO){
+       /* System.out.println(articleFormDTO.toString());
        => 로깅으로 대체!!!
         */
-        log.info(articleForm.toString());
+        log.info(articleFormDTO.toString());
 
         // 1. Dto 를 변환!! -> Entity 로!
-        // articleForm.toEntity(); ArticleDto를 엔티티로 !!
+        // articleFormDTO.toEntity(); ArticleDto를 엔티티로 !!
         // 그럼 엔티티에 담아야겠지?
         // Article article =
-        // Article 클래스 엔티티를 만들고 변수명을 artcle 에 = articleForm.toEntity(); 를 담아주는것!
+        // Article 클래스 엔티티를 만들고 변수명을 artcle 에 = articleFormDTO.toEntity(); 를 담아주는것!
 
-        Article article = articleForm.toEntity();
+        Article article = articleFormDTO.toEntity();
         /*System.out.println(article.toString());
         * => 로깅으로 대체!!
          */
@@ -123,11 +123,11 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/update")
-    public String update(ArticleForm articleForm){
-        log.info(articleForm.toString());
+    public String update(ArticleFormDTO articleFormDTO, RedirectAttributes rttr){
+        log.info(articleFormDTO.toString());
 
         // 1. DTO 를 엔티티로 변환한다!
-        Article article = articleForm.toEntity();
+        Article article = articleFormDTO.toEntity();
 
         log.info(article.toString());
 
@@ -141,6 +141,7 @@ public class ArticleController {
          // 2-2 기존 데이터 값을 갱신한다.
          if(target != null){
             articleRepository.save(article); // 엔티티가 DB로 갱신된다.
+             rttr.addFlashAttribute("msg","수정이 완료 되었습니다.");
          }
 
 
