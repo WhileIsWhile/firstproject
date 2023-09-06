@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController// RestAPI 용 컨트롤ㄹ러 데이터(JSON)를  반환한다.
 @Slf4j
@@ -26,7 +25,7 @@ public class ArticleApiController {
         return articleService.index();
     }
   @GetMapping("/api/articles/{id}")
-    public Optional<Article> show(@PathVariable Long id){
+    public Article show(@PathVariable Long id){
 
         //return articleRepository.findById(id).orElse(null);
 
@@ -80,4 +79,5 @@ public class ArticleApiController {
             ResponseEntity.status(HttpStatus.OK).body(createList) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
 }
