@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service //서비스 생성!(해당 클래스를 서비스로 인식하여 스프링 부트에 객체를 생성(등록))
@@ -22,8 +21,8 @@ public class ArticleService {
        return articleRepository.findAll();
     }
 
-    public Optional<Article> show(Long id) {
-        return articleRepository.findById(id);
+    public Article show(Long id) {
+        return articleRepository.findById(id).orElse(null);
     }
 
     public Article create(ArticleFormDTO articleFormDTO) {
