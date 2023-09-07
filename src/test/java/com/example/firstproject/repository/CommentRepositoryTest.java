@@ -36,6 +36,20 @@ class CommentRepositoryTest {
             // 4. 비교 및 검증
             assertEquals(exptected.toString(),comments.toString(),"4번 글의 모든 댓글을 출력!");
         }
+        /*Case 2 : 1번 게시글 의 모든 댓글 조회*/
+        {
+            // 입력 데이터 준비
+            Long articleId = 1L;
+
+            // 실제 수행
+            List<Comment> comments = commentRepository.findByArticleId(articleId);
+
+            //예상하기
+            Article article = new Article(1L, "111111","111111");
+            List<Comment> exptected = Arrays.asList();
+
+            assertEquals(exptected.toString() , comments.toString() , "1번 글의 모든 댓글을 출력!");
+        }
 
     }
 
