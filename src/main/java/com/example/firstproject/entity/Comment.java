@@ -1,5 +1,6 @@
 package com.example.firstproject.entity;
 
+import com.example.firstproject.dto.CommentDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +28,32 @@ public class Comment{
     private String body;        // 댓글 내용!
 
 
+    public static Comment createComment(CommentDTO commentDTO, Article article) {
+
+        // 예외처리
+        if(commentDTO.getId() != null)
+            throw new IllegalArgumentException("댓글 생성 실패! " +
+                    "댓글의 id 가 없어야 합니다.");
+        if(commentDTO.getArticleId() != article.getId())
+            throw  new IllegalArgumentException("댓글 생성 실패! 게시글의 id 가 잘못 돼었습니다");
+        // 엔티티 생성 및 반환
+        return new Comment(
+                commentDTO.getId(),
+                article,
+                commentDTO.getNickname(),
+                commentDTO.getBody()
+        );
+    }
+
+    public void patch(CommentDTO commentDTO) {
+        //예외 발생
+        if(this.id != commentDTO.getId())
+            throw new IllegalArgumentException("댓글 수정 실패! 잘못된 id " +
+                    "입력 되었습니다");
+        //객체를 갱신
+        if(commentDTO.getNickname() != null)
+            this.nickname = commentDTO.getNickname();
+        if(commentDTO.getBody() != null)
+            this.body = commentDTO.getBody();
+    }
 }

@@ -2,8 +2,10 @@ package com.example.firstproject.controller;
 
 
 import com.example.firstproject.dto.ArticleFormDTO;
+import com.example.firstproject.dto.CommentDTO;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
+import com.example.firstproject.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class ArticleController {
     @Autowired//스프링 부트가 미리 생성해 놓은 객체를 가져다가 연결! 자동 연결!
     private ArticleRepository articleRepository;
 
+    @Autowired
+    private CommentService commentService;
     // 1번째 로 한것
     @GetMapping("/articles/new")
     public String newArticleForm(){
@@ -80,11 +84,13 @@ public class ArticleController {
 
         /*Article article= articleRepository.findById(id).orElse(null);*/ //이렇게 써도 되지만 ??
 
-        Optional<Article> article = articleRepository.findById(id);
+        Article article = articleRepository.findById(id).orElse(null);
+        List<CommentDTO> commentDTOS = commentService.comments(id);
 
         // 2. 가져온 데이터를 모델에 등록!
 
-        model.addAttribute("article", article.get());
+        model.addAttribute("article", article);
+        model.addAttribute("commentDTOS",commentDTOS);
 
         // 3. 보여줄 페이지를 설정!
         return "articles/show";
@@ -159,13 +165,13 @@ public class ArticleController {
         /*Article article = articleRepository.findById(id).orElse(null);
         *  대상이 없으면 null 로 리턴이 된다. */
 
-        Optional<Article> article  = articleRepository.findById(id);
+       Article article  = articleRepository.findById(id).orElse(null);
 
         log.info(article.toString());
 
         // 2. 그 대상을 삭제한다.
         if(article != null){
-            articleRepository.delete(article.get());
+            articleRepository.delete(article);
             rttr.addFlashAttribute("msg", "삭제가 완료 되었습니다");
         }
 

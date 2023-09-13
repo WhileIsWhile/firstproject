@@ -1,0 +1,66 @@
+<div class="card m-2" id="comments-new">
+    <div class="card-body">
+<!--        댓글 작성 폼-->
+        <form>
+<!--            닉네임 입력-->
+            <div class="mb-3">
+                <label class="form-label">닉네임</label>
+                <input class="form-control form control-sm" id="new-comment-nickname">
+            </div>
+<!--            댓글 본문 입력-->
+            <div class="mb-3">
+                <label class="form-label">댓글 내용</label>
+                <textarea class="form-control form-control-sm" rows="3" id="new-comment-body"></textarea>
+            </div>
+
+
+<!--            히든 인풋-->
+            {{#article}}
+                <input type="hidden" id="new-comment-article-id" value="{{id}}">
+            {{/article}}
+<!--             전송 버튼-->
+            <button type="button" class="btn btn-outline-primary btn-sm" id="comment-create-btn">댓글 장석</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    {
+        //댓글 생성버튼을 변수화 id="comment-create-btn" 대상을 가져옴
+      const commentCreateBtn = document.querySelector("#comment-create-btn");
+
+        //버튼 클릭 이벤트 감지! 하고 클릭했을떄 함수가 실행되겠다!!!
+        commentCreateBtn.addEventListener("click" , function () {
+            //새댓글 객체 생성
+            const comment = {
+                //id 값은 # 으로 들고오는것 값 들고올려면 뒤에 .value!
+                nickname: document.querySelector("#new-comment-nickname").value,
+                body: document.querySelector("#new-comment-body").value,
+                article_id: document.querySelector("#new-comment-article-id").value
+            };
+
+            // 댓글 객체 출력
+            console.log(comment);
+
+
+            // fetch() - Talend API 요청을 JavaScript 로 보내준다!
+            const url = "/api/articles/" + comment.article_id + "/comments";
+            fetch(url,{
+               method: "post",   //POST 요청으로 보낼거임
+               body: JSON.stringify(comment),   // comments JS 객체를 JSON 형태로 변경하여 보냄
+               headers: {
+                   "Content-Type": "application/json"
+               }
+               //그래서 응답이 돌아오면은?!!?
+            }).then(response => {
+                //http 응답 코드에 따른 메세지 출력
+                const msg = (response.ok) ? "댓글 등록이 되었습니다." : "댓글 등록 실패...!";
+                alert(msg);
+                //현제 페이지 새로고침
+                window.location.reload();
+            });
+        });
+
+
+    }
+</script>
