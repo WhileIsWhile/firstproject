@@ -16,14 +16,17 @@ repositories {
 }
 
 dependencies {
+	//mysql 드라이버 추가
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
 	//롬복 추가
 	compileOnly 'org.projectlombok:lombok:'
 	annotationProcessor 'org.projectlombok:lombok:'
 
 	//스프링 시큐리티
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+/*	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.5.RELEASE'
-	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test'*/
 
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -33,6 +36,4 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
+
